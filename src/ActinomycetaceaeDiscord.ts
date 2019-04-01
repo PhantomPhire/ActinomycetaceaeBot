@@ -8,11 +8,11 @@ import {ActBotConstants} from "./Constants";
 import {ClientAccess} from "../DiscordBotUtils";
 
 /**
- * A static container for access to the Oklahoma Melee Discord guild
+ * A static container for access to the Actinomycetacae Discord guild
  */
 export abstract class ActinomycetaceaeDiscord {
     /**
-     * Gets the Oklahoma Melee Discord object
+     * Gets the AtceaDiscord Discord object
      */
     public static getGuild(): Guild | undefined {
         let client = ClientAccess.client();

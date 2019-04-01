@@ -28,6 +28,8 @@ export class ActinomycetacaeBotManager extends BotManager {
         // Read in commands
         this._bot.registry.registerGroup("sounds", "Sounds");
         this._bot.registry.registerGroup("misc", "Misc");
+        this._bot.registry.registerGroup("suggestions", "Suggestions");
+        this._bot.registry.registerGroup("roles", "Roles");
         this._bot.registry.registerDefaults();
         this._bot.registry.registerCommandsIn(__dirname + "/commands");
     }

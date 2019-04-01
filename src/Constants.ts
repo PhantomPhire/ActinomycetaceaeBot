@@ -25,4 +25,16 @@ export abstract class ActBotConstants {
      * @constant
      */
     public static readonly discordMaxMessageLength = 2000;
+
+    /**
+     * The path to the assets folder.
+     * @constant
+     */
+    public static readonly assetPath: string = ActBotConstants.rootPath + "assets/";
+
+    /**
+     * The path to the roles json file.
+     * @constant
+     */
+    public static readonly rolesPath: string = ActBotConstants.rootPath + "assets/roles.json";
 }
