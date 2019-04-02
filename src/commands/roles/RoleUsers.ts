@@ -1,7 +1,6 @@
 import {Command, CommandoClient, CommandMessage} from "discord.js-commando";
 import {Message} from "discord.js";
 import {RolesManager} from "../../utility/RolesManager";
-import { isNullOrUndefined } from "util";
 
 export class RoleUsers extends Command {
     constructor(client: CommandoClient) {
