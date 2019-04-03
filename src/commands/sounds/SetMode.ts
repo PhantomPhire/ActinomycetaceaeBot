@@ -42,10 +42,10 @@ class SetMode extends Command {
      * @param args The command arguments.
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
-    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[] | void> {
+    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
         let value = parseInt(args);
         if (msg.guild == undefined) {
-            msg.say("You can't do that here.");
+            return msg.say("You can't do that here.");
         }
 
         let player = GuildAudioPlayer.getGuildAudioPlayer(msg.guild.id);
@@ -55,6 +55,11 @@ class SetMode extends Command {
             player.joinAndPlay = false;
         else
             player.joinAndPlay = !player.joinAndPlay;
+
+        if (player.joinAndPlay)
+            return msg.say("Set to join and play mode");
+        else
+            return msg.say("Set to commanded playback mode");
     }
 }
 module.exports = SetMode;

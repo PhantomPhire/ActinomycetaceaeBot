@@ -13,7 +13,7 @@ export class RoleUsers extends Command {
         });
     }
 
-    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[] | void> {
+    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]>  {
         let character = RolesManager.getFormattedRoleString(args).trim();
 
         if (character === undefined || character === "") {
@@ -35,8 +35,8 @@ export class RoleUsers extends Command {
             else
                 listToPrint += "\n" + roleListArray[x].nickname;
         }
-        msg.reply ("\nMembers with " + currentRole.name + ":\n" + listToPrint);
 
+        return msg.reply ("\nMembers with " + currentRole.name + ":\n" + listToPrint);
     }
 }
 module.exports = RoleUsers;

@@ -36,7 +36,7 @@ export class RemoveSuggestion extends Command {
      * @param args The command arguments.
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
-    public async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]>  {
+    public async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
         if (args != undefined && args.length > 0) {
             let result = SuggestionsManager.removesuggestion(args);
             if (result)

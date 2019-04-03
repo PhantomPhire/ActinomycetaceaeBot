@@ -28,11 +28,10 @@ class GetSounds extends Command {
      * @param args The command arguments.
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
-    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[] | void> {
+    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
         let soundPath = SoundFileManager.soundPath();
         if (soundPath == undefined) {
-            msg.say("This bot's sound path has not been specified.");
-            return;
+            return msg.say("This bot's sound path has not been specified.");
         }
 
         // Read whole directory for filenames
