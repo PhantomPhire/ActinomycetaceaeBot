@@ -13,7 +13,7 @@ export class GetRoles extends Command {
         });
     }
 
-    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[] | void> {
+    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]>  {
         let roles = RolesManager.roles;
         let rolePrint = "";
 
@@ -21,7 +21,7 @@ export class GetRoles extends Command {
             rolePrint += "\n" + roles[i];
         }
 
-        msg.say("Here is the list of valid roles:" + rolePrint, {});
+        return msg.say("Here is the list of valid roles:" + rolePrint, {});
     }
 }
 module.exports = GetRoles;

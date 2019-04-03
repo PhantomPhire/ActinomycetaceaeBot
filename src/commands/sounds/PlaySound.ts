@@ -29,7 +29,7 @@ class PlaySound extends Command {
      * @param args The command arguments.
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
-    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[] | void> {
+    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
         if (msg.guild == undefined)
             return msg.say("This command can only be executed in a guild.");
 
@@ -60,6 +60,10 @@ class PlaySound extends Command {
         }
 
         player.add(sound!);
+
+        // So this is completely pointless but the typescript definitions of this function absolutely demand a promise of a message to be returned at the
+        // end of every command function soooo.....¯\_(ツ)_/¯
+        return msg.clearReactions();
     }
 }
 module.exports = PlaySound;

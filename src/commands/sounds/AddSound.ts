@@ -43,7 +43,7 @@ class AddSound extends Command {
      * @param args The command arguments.
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
-    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[] | void> {
+    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
         let attachments = msg.attachments.array();
         if (attachments[0] == undefined) {
             return msg.say("Attach a file to use this command.");
@@ -55,6 +55,7 @@ class AddSound extends Command {
             return msg.say("This bot's sound path has not been specified.");
         }
 
+        let response: string = "";
         let temp;
         for (let i = 0; i < attachments.length; i++) {
             temp = attachments[i].url.split(".");
@@ -68,14 +69,15 @@ class AddSound extends Command {
                         console.log("Filestream closed");
                     },         30000);
                 });
-                msg.say(attachments[i].filename + " added.");
+                response = attachments[i].filename + " added.";
             }
             else {
-                msg.say(attachments[i].filename + ": File type not supported");
+                response = attachments[i].filename + ": File type not supported";
             }
         }
 
         SoundFileManager.refresh();
+        return msg.say(response);
     }
 }
 module.exports = AddSound;

@@ -15,7 +15,7 @@ export class SetRole extends Command {
         });
     }
 
-    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[] | void> {
+    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
         let character = RolesManager.getFormattedRoleString(args).trim();
 
         if (character === undefined || character === "") {
@@ -60,10 +60,14 @@ export class SetRole extends Command {
                 }
             }
             catch (err) {
-                msg.reply("Someone dun fucked up. The role: " + args + " was allowed but does not exist..\nShame on you.");
                 console.log(err);
+                msg.reply("Someone dun fucked up. The role: " + args + " was allowed but does not exist..\nShame on you.");
             }
         });
+
+        // So this is completely pointless but the typescript definitions of this function absolutely demand a promise of a message to be returned at the
+        // end of every command function soooo.....¯\_(ツ)_/¯
+        return msg.clearReactions();
     }
 }
 module.exports = SetRole;

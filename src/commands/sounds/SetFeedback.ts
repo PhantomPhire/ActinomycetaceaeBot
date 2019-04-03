@@ -42,14 +42,14 @@ class SetFeedback extends Command {
      * @param args The command arguments.
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
-    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[] | void> {
+    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
         if (msg.guild == undefined || (msg.channel as TextChannel) == undefined) {
             msg.say("You can't do that here.");
         }
 
         let player = GuildAudioPlayer.getGuildAudioPlayer(msg.guild.id);
         player.feedbackChannel = msg.channel as TextChannel;
-        msg.say(msg.channel + " set as new voice feedback channel");
+        return msg.say(msg.channel + " set as new voice feedback channel");
     }
 }
 module.exports = SetFeedback;

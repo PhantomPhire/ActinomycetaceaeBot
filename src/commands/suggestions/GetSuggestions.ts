@@ -37,14 +37,14 @@ export class GetSuggestions extends Command {
      * @param args The command arguments.
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
-    public async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[] | void> {
+    public async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
         let member: GuildMember | undefined = NameResolution.stringToGuildMember(args, msg.guild);
         if (member != null) {
             let suggestion = SuggestionsManager.getsuggestions();
             if (suggestion !== undefined) {
                 return msg.say(suggestion);
             }
-            return msg.say("Something went wrong.");
+            return msg.say("Suggestion list is empty.");
         }
         else
            return msg.say("Aww fuck. How did this happen? Fuuuuuuuuuuuu.");
