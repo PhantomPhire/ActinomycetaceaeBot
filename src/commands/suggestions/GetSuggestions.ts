@@ -44,7 +44,7 @@ export class GetSuggestions extends Command {
             if (suggestion !== undefined) {
                 return msg.say(suggestion);
             }
-            return msg.say("Something went wrong.");
+            return msg.say("Suggestion list is empty.");
         }
         else
            return msg.say("Aww fuck. How did this happen? Fuuuuuuuuuuuu.");
