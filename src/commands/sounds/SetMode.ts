@@ -26,14 +26,7 @@ class SetMode extends Command {
      * @param msg The message that was posted.
      */
     hasPermission(msg: CommandMessage): boolean {
-        let guild = ActinomycetaceaeDiscord.getGuild();
-        if (guild != undefined &&
-            guild.members.has(msg.author.id) &&
-            guild.members.get(msg.author.id)!.hasPermission("ADMINISTRATOR")) {
-            return true;
-        }
-
-        return false;
+        return msg.member.hasPermission("ADMINISTRATOR");
     }
 
     /**
