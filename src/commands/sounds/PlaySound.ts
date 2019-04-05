@@ -33,12 +33,16 @@ class PlaySound extends Command {
         if (msg.guild == undefined)
             return msg.say("This command can only be executed in a guild.");
 
-        let userArgs: string[] | undefined = args.split(" ");
         let sound: FileSound | undefined = undefined;
-        for (let i = 0; i < userArgs.length; i++) {
-            sound = SoundFileManager.getFileSound(userArgs[i]);
-            if (sound != undefined)
-                break;
+        args = args.trim();
+
+        if (args !== "") {
+            let userArgs: string[] | undefined = args.split(" ");
+            for (let i = 0; i < userArgs.length; i++) {
+                sound = SoundFileManager.getFileSound(userArgs[i]);
+                if (sound != undefined)
+                    break;
+            }
         }
 
         if (sound == undefined) {
@@ -51,9 +55,9 @@ class PlaySound extends Command {
         let player = GuildAudioPlayer.getGuildAudioPlayer(msg.guild.id);
 
         if (player.joinAndPlay) {
-            let voiceChannel = NameResolution.stringToVoiceChannel(args, msg.guild);
+            let voiceChannel = NameResolution.commandMessageToVoiceChannel(args, msg, msg.guild);
 
-            if (voiceChannel === undefined)
+            if (voiceChannel == undefined)
                 return msg.say("Error: Voice channel is not joinable or could not find valid voice channel based on arguments."
                                 + " Please be in a voice channel, mention someone in a voice channel, or type the username of someone in a voice channel.");
             player.boundVoiceChannel = voiceChannel;
