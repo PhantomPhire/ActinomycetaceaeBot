@@ -2,7 +2,14 @@ import {Command, CommandoClient, CommandMessage} from "discord.js-commando";
 import {Message} from "discord.js";
 import {RolesManager} from "../../utility/RolesManager";
 
+/**
+ * A command to allow users to retrieve a list of users with a specific role
+ */
 export class RoleUsers extends Command {
+    /**
+     * Initializes a new instance of the RoleUsers class
+     * @param client The commando client to utilize.
+     */
     constructor(client: CommandoClient) {
         super(client, {
             name: "roleusers",
@@ -13,7 +20,13 @@ export class RoleUsers extends Command {
         });
     }
 
-    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]>  {
+    /**
+     * Runs the command.
+     * @param msg The command message.
+     * @param args The command arguments.
+     * @param fromPattern Whether or not the command is being run from a pattern match.
+     */
+    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
         let character = RolesManager.getFormattedRoleString(args).trim();
 
         if (character === undefined || character === "") {

@@ -5,7 +5,7 @@
  */
 import {Guild} from "discord.js";
 import {ActBotConstants} from "./Constants";
-import {ClientAccess} from "../DiscordBotUtils";
+import {ClientAccess} from "mikes-discord-bot-utils";
 
 /**
  * A static container for access to the Actinomycetacae Discord guild

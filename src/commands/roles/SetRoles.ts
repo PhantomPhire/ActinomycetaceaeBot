@@ -3,7 +3,14 @@ import {GuildMember, Message, Role} from "discord.js";
 import {RolesManager} from "../../utility/RolesManager";
 import {ActinomycetaceaeDiscord} from "../../ActinomycetaceaeDiscord";
 
+/**
+ * A command to allow users to set allowed roles for themselves
+ */
 export class SetRole extends Command {
+    /**
+     * Initializes a new instance of the SetRole class
+     * @param client The commando client to utilize.
+     */
     constructor(client: CommandoClient) {
         super(client, {
             name: "setrole",
@@ -15,6 +22,12 @@ export class SetRole extends Command {
         });
     }
 
+    /**
+     * Runs the command.
+     * @param msg The command message.
+     * @param args The command arguments.
+     * @param fromPattern Whether or not the command is being run from a pattern match.
+     */
     async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
         let character = RolesManager.getFormattedRoleString(args).trim();
 

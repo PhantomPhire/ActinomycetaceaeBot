@@ -1,6 +1,6 @@
 import * as config from "../../config.json";
 import {CommandoClient} from "discord.js-commando";
-import {BotManager, GuildAudioPlayer, SoundFileManager} from "../DiscordBotUtils";
+import {BotManager, GuildAudioPlayer, SoundFileManager} from "mikes-discord-bot-utils";
 
 /**
  * A wrapper for the TrollBot, managing its events and internals
