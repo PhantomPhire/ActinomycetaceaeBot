@@ -33,7 +33,7 @@ class PlaySound extends Command {
             return msg.say("This command can only be executed in a guild.");
 
         let sound: FileSound | undefined = undefined;
-        let userArgs: string[] | undefined = this.parseArgs(args);
+        let userArgs: string[] | undefined = NameResolution.parseArgsIntoArray(args);
 
         if (userArgs != undefined) {
             for (let i = 0; i < userArgs.length; i++) {
@@ -64,54 +64,6 @@ class PlaySound extends Command {
         player.add(sound!);
 
         return Promise.resolve(null);
-    }
-
-    /**
-     * Parses the args of the command into separate strings
-     * @param args The args to parse
-     */
-    parseArgs(args: string): Array<string> | undefined {
-        let parsedArgs = new Array<string>();
-        args = args.trim();
-
-        let spaceArg: boolean = false;
-        let spaceArgUsed: boolean = false;
-        let currentArg: string = "";
-        for (let i = 0; i < args.length; i++) {
-            if (args.charAt(i) === " " && !spaceArg) {
-                if (currentArg.length > 0) {
-                    parsedArgs.push(currentArg);
-                    currentArg = "";
-                }
-
-                continue;
-            }
-            else if (args.charAt(i) === "\"") {
-                if (spaceArg) {
-                    if (currentArg.length > 0)
-                        parsedArgs.push(currentArg);
-                    spaceArg = false;
-                }
-                else
-                    spaceArg = true;
-                spaceArgUsed = true;
-                continue;
-            }
-
-            currentArg += args.charAt(i);
-        }
-
-        if (currentArg.length > 0)
-            parsedArgs.push(currentArg);
-
-        if ((!spaceArgUsed) && parsedArgs.length > 1) {
-            parsedArgs.push(args);
-        }
-
-        if (parsedArgs.length === 0)
-            return undefined;
-
-        return parsedArgs;
     }
 }
 module.exports = PlaySound;
