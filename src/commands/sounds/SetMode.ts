@@ -1,7 +1,6 @@
 import {Command, CommandoClient, CommandMessage} from "discord.js-commando";
 import {Message} from "discord.js";
-import {GuildAudioPlayer} from "../../../DiscordBotUtils/";
-import {ActinomycetaceaeDiscord} from "../../ActinomycetaceaeDiscord";
+import {GuildAudioPlayer} from "mikes-discord-bot-utils";
 
 /**
  * A command to set the bot's voice mode
@@ -26,6 +25,9 @@ class SetMode extends Command {
      * @param msg The message that was posted.
      */
     hasPermission(msg: CommandMessage): boolean {
+        if (msg.guild == undefined) {
+            return true;
+        }
         return msg.member.hasPermission("ADMINISTRATOR");
     }
 
@@ -36,10 +38,10 @@ class SetMode extends Command {
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
     async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
+        if (msg.guild == undefined)
+            return msg.say("This command can only be executed in a guild.");
+
         let value = parseInt(args);
-        if (msg.guild == undefined) {
-            return msg.say("You can't do that here.");
-        }
 
         let player = GuildAudioPlayer.getGuildAudioPlayer(msg.guild.id);
         if (value === 1)

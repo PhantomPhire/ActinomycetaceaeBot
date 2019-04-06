@@ -1,6 +1,6 @@
 import {Command, CommandoClient, CommandMessage} from "discord.js-commando";
 import {Message} from "discord.js";
-import {GuildAudioPlayer} from "../../../DiscordBotUtils/";
+import {GuildAudioPlayer} from "mikes-discord-bot-utils";
 
 /**
  * A command to request the bot to post its current play list

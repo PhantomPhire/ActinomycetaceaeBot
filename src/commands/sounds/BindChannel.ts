@@ -1,7 +1,6 @@
 import {Command, CommandoClient, CommandMessage} from "discord.js-commando";
 import {Message} from "discord.js";
-import {GuildAudioPlayer, NameResolution} from "../../../DiscordBotUtils/";
-import {ActinomycetaceaeDiscord} from "../../ActinomycetaceaeDiscord";
+import {GuildAudioPlayer, NameResolution} from "mikes-discord-bot-utils";
 
 /**
  * A command for binding the bot to a voice channel in a guild
@@ -26,14 +25,10 @@ class BindChannel extends Command {
      * @param msg The message that was posted.
      */
     hasPermission(msg: CommandMessage): boolean {
-        let guild = ActinomycetaceaeDiscord.getGuild();
-        if (guild != undefined &&
-            guild.members.has(msg.author.id) &&
-            guild.members.get(msg.author.id)!.hasPermission("ADMINISTRATOR")) {
+        if (msg.guild == undefined) {
             return true;
         }
-
-        return false;
+        return msg.member.hasPermission("ADMINISTRATOR");
     }
 
     /**
@@ -43,6 +38,9 @@ class BindChannel extends Command {
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
     async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
+        if (msg.guild == undefined)
+            return msg.say("This command can only be executed in a guild.");
+
         if (msg.guild == undefined)
             return msg.say("This command can only be executed in a guild.");
 

@@ -24,8 +24,8 @@ export class Addsuggestion extends Command {
      * @param msg The message that was posted.
      */
     public hasPermission(msg: CommandMessage): boolean {
-        if (!msg.guild) {
-            return false;
+        if (msg.guild == undefined) {
+            return true;
         }
         return msg.member.hasPermission("ADMINISTRATOR");
     }
@@ -37,6 +37,9 @@ export class Addsuggestion extends Command {
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
     public async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
+        if (msg.guild == undefined)
+            return msg.say("This command can only be executed in a guild.");
+
         if (args != undefined && args.length > 0) {
             let result = SuggestionsManager.addsuggestion(args);
             if (result)

@@ -1,7 +1,6 @@
 import {Command, CommandoClient, CommandMessage} from "discord.js-commando";
 import {Message} from "discord.js";
-import {GuildAudioPlayer, NameResolution, SoundFileManager} from "../../../DiscordBotUtils/";
-import {FileSound} from "../../../DiscordBotUtils/src/voice/FileSound";
+import {FileSound, GuildAudioPlayer, NameResolution, SoundFileManager} from "mikes-discord-bot-utils";
 
 /**
  * A command to request the bot to play a sound in a voice channel
@@ -34,10 +33,9 @@ class PlaySound extends Command {
             return msg.say("This command can only be executed in a guild.");
 
         let sound: FileSound | undefined = undefined;
-        args = args.trim();
+        let userArgs: string[] | undefined = this.parseArgs(args);
 
-        if (args !== "") {
-            let userArgs: string[] | undefined = args.split(" ");
+        if (userArgs != undefined) {
             for (let i = 0; i < userArgs.length; i++) {
                 sound = SoundFileManager.getFileSound(userArgs[i]);
                 if (sound != undefined)
@@ -55,7 +53,7 @@ class PlaySound extends Command {
         let player = GuildAudioPlayer.getGuildAudioPlayer(msg.guild.id);
 
         if (player.joinAndPlay) {
-            let voiceChannel = NameResolution.commandMessageToVoiceChannel(args, msg, msg.guild);
+            let voiceChannel = NameResolution.commandMessageToVoiceChannel(userArgs, msg, msg.guild);
 
             if (voiceChannel == undefined)
                 return msg.say("Error: Voice channel is not joinable or could not find valid voice channel based on arguments."
@@ -68,6 +66,48 @@ class PlaySound extends Command {
         // So this is completely pointless but the typescript definitions of this function absolutely demand a promise of a message to be returned at the
         // end of every command function soooo.....¯\_(ツ)_/¯
         return msg.clearReactions();
+    }
+
+    /**
+     * Parses the args of the command into separate strings
+     * @param args The args to parse
+     */
+    parseArgs(args: string): Array<string> | undefined {
+        let parsedArgs = new Array<string>();
+        args = args.trim();
+
+        let spaceArg: boolean = false;
+        let spaceArgUsed: boolean = false;
+        let currentArg: string = "";
+        for (let i = 0; i < args.length; i++) {
+            if (args.charAt(i) === " " && !spaceArg) {
+                if (currentArg.length > 0)
+                    parsedArgs.push(currentArg);
+                continue;
+            }
+            else if (args.charAt(i) === "\"") {
+                if (spaceArg) {
+                    if (currentArg.length > 0)
+                        parsedArgs.push(currentArg);
+                    spaceArg = false;
+                }
+                else
+                    spaceArg = true;
+                spaceArgUsed = true;
+                continue;
+            }
+
+            currentArg += args.charAt(i);
+        }
+
+        if ((!spaceArgUsed) && parsedArgs.length > 1) {
+            parsedArgs.push(args);
+        }
+
+        if (parsedArgs.length === 0)
+            return undefined;
+
+        return parsedArgs;
     }
 }
 module.exports = PlaySound;

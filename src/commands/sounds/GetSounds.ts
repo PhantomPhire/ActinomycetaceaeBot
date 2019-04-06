@@ -1,6 +1,6 @@
 import {Command, CommandoClient, CommandMessage} from "discord.js-commando";
 import {Message} from "discord.js";
-import {SoundFileManager} from "../../../DiscordBotUtils";
+import {SoundFileManager} from "mikes-discord-bot-utils";
 import {ActBotConstants} from "../../Constants";
 import fs = require("fs");
 
