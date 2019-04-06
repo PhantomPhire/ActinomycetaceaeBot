@@ -5,7 +5,7 @@
   "main": "actBot.js",
   "dependencies": {
     "ffmpeg.js": "^3.1.9001",
-    "mikes-discord-bot-utils": "^1.0.0",
+    "mikes-discord-bot-utils": "^1.0.1",
     "node-gyp": "^3.8.0",
     "node-opus": "^0.3.1",
     "opus.js": "^0.1.1",

@@ -29,7 +29,9 @@ class Join extends Command {
         if (msg.guild == undefined)
             return msg.say("This command can only be executed in a guild.");
 
-        let voiceChannel = NameResolution.stringToVoiceChannel(args, msg.guild);
+        let userArgs: string[] | undefined = NameResolution.parseArgsIntoArray(args);
+
+        let voiceChannel = NameResolution.commandMessageToVoiceChannel(userArgs, msg, msg.guild);
 
         if (voiceChannel === undefined)
             return msg.say("Error: No valid voice channel found");
