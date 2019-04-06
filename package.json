@@ -1,13 +1,11 @@
 {
   "name": "actbot",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A Discord bot for trolling people.",
   "main": "actBot.js",
   "dependencies": {
-    "discord.js": "^11.4.2",
-    "discord.js-commando": "^0.10.0",
     "ffmpeg.js": "^3.1.9001",
-    "mikes-discord-bot-utils": "^0.1.0",
+    "mikes-discord-bot-utils": "^1.0.0",
     "node-gyp": "^3.8.0",
     "node-opus": "^0.3.1",
     "opus.js": "^0.1.1",
@@ -16,7 +14,8 @@
     "ytdl-core": "^0.14.4"
   },
   "devDependencies": {
-    "@types/node": "^10.10.10"
+    "@types/node": "^10.10.10",
+    "@types/ws": "^6.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

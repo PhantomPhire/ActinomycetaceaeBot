@@ -40,7 +40,11 @@ export class ActinomycetacaeBotManager extends BotManager {
     private setupEventListeners() {
         // Add function for when bot is ready
         this._bot.on("ready", () => {
-            this._bot.user.setActivity("AAAAAHHHHHHHHHHHHH!!!!!!!!!");
+
+            if (this._bot.user != null) {
+                this._bot.user.setActivity("AAAAAHHHHHHHHHHHHH!!!!!!!!!");
+            }
+
             GuildAudioPlayer.loadPersistentGuilds();
         });
     }

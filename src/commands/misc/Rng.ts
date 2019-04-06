@@ -1,4 +1,4 @@
-import {Command, CommandoClient, CommandMessage} from "discord.js-commando";
+import {Command, CommandoClient, CommandoMessage} from "discord.js-commando";
 import {Message} from "discord.js";
 
 /**
@@ -27,7 +27,7 @@ class Rng extends Command {
      * @param args The command arguments.
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
-    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
+    async run(msg: CommandoMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
         let userArgs = args.split(" ");
         let bound1, bound2, temp;
 
