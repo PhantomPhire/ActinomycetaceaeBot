@@ -37,7 +37,7 @@ export class BlockRole extends Command {
      * @param args The command arguments.
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
-    public async run(msg: CommandoMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
+    public async run(msg: CommandoMessage, args: string, fromPattern: boolean): Promise<Message | Message[] | null> {
         if (msg.guild == undefined)
             return msg.say("This command can only be executed in a guild.");
 
