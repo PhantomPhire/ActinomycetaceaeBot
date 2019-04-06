@@ -28,7 +28,7 @@ export class SetRole extends Command {
      * @param args The command arguments.
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
-    async run(msg: CommandoMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
+    async run(msg: CommandoMessage, args: string, fromPattern: boolean): Promise<Message | Message[] | null> {
         let character = RolesManager.getFormattedRoleString(args).trim();
 
         if (character === undefined || character === "") {

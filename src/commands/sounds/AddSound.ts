@@ -43,7 +43,7 @@ class AddSound extends Command {
      * @param args The command arguments.
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
-    async run(msg: CommandoMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
+    async run(msg: CommandoMessage, args: string, fromPattern: boolean): Promise<Message | Message[] | null> {
         let attachments = msg.attachments.array();
         if (attachments[0] == undefined) {
             return msg.say("Attach a file to use this command.");
