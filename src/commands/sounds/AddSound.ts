@@ -1,4 +1,4 @@
-import {Command, CommandoClient, CommandMessage} from "discord.js-commando";
+import {Command, CommandoClient, CommandoMessage} from "discord.js-commando";
 import {Message} from "discord.js";
 import {SoundFileManager} from "mikes-discord-bot-utils";
 import {ActinomycetaceaeDiscord} from "../../ActinomycetaceaeDiscord";
@@ -26,7 +26,7 @@ class AddSound extends Command {
      * Tests the command for proper permissions.
      * @param msg The message that was posted.
      */
-    hasPermission(msg: CommandMessage): boolean {
+    hasPermission(msg: CommandoMessage): boolean {
         let guild = ActinomycetaceaeDiscord.getGuild();
         if (guild != undefined &&
             guild.members.has(msg.author.id) &&
@@ -43,7 +43,7 @@ class AddSound extends Command {
      * @param args The command arguments.
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
-    async run(msg: CommandMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
+    async run(msg: CommandoMessage, args: string, fromPattern: boolean): Promise<Message | Message[]> {
         let attachments = msg.attachments.array();
         if (attachments[0] == undefined) {
             return msg.say("Attach a file to use this command.");
@@ -61,7 +61,7 @@ class AddSound extends Command {
             temp = attachments[i].url.split(".");
 
             if (SoundFileManager.fileIsSupported(temp[temp.length - 1])) {
-                let file = fs.createWriteStream(soundPath + attachments[i].filename);
+                let file = fs.createWriteStream(soundPath + "/" + attachments[i].name);
                 https.get(attachments[i].url, function(response: NodeJS.ReadableStream) {
                     response.pipe(file);
                     setTimeout(function() {
@@ -69,10 +69,10 @@ class AddSound extends Command {
                         console.log("Filestream closed");
                     },         30000);
                 });
-                response = attachments[i].filename + " added.";
+                response = attachments[i].name + " added.";
             }
             else {
-                response = attachments[i].filename + ": File type not supported";
+                response = attachments[i].name + ": File type not supported";
             }
         }
 
