@@ -1,7 +1,7 @@
 import {GuildMember, Message} from "discord.js";
 import {Command, CommandoClient, CommandoMessage} from "discord.js-commando";
 import {SuggestionsManager} from "../../utility/SuggestionsManager";
-import {NameResolution} from "mikes-discord-bot-utils";
+import {NameResolution} from "discord-shine";
 
 /**
  * A command for sending a suggestion to a member.

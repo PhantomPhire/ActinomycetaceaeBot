@@ -1,6 +1,6 @@
 import {Command, CommandoClient, CommandoMessage} from "discord.js-commando";
 import {Message} from "discord.js";
-import {GuildAudioPlayer, NameResolution} from "mikes-discord-bot-utils";
+import {GuildAudioPlayer, NameResolution} from "discord-shine";
 
 /**
  * A command to request the bot to join a voice channel

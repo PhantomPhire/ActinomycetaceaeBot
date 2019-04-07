@@ -1,6 +1,6 @@
 import {Command, CommandoClient, CommandoMessage} from "discord.js-commando";
 import {Message, TextChannel} from "discord.js";
-import {GuildAudioPlayer} from "mikes-discord-bot-utils";
+import {GuildAudioPlayer} from "discord-shine";
 
 /**
  * A command to set the bot's voice channel feedback channel
