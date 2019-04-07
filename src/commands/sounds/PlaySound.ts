@@ -1,6 +1,6 @@
 import {Command, CommandoClient, CommandoMessage} from "discord.js-commando";
 import {Message} from "discord.js";
-import {FileSound, GuildAudioPlayer, NameResolution, SoundFileManager} from "mikes-discord-bot-utils";
+import {FileSound, GuildAudioPlayer, NameResolution, SoundFileManager} from "discord-shine";
 
 /**
  * A command to request the bot to play a sound in a voice channel
