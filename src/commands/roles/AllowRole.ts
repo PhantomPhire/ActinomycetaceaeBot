@@ -1,6 +1,7 @@
 import {Command, CommandoClient, CommandoMessage} from "discord.js-commando";
 import {Message} from "discord.js";
 import {RolesManager} from "../../utility/RolesManager";
+import { isNullOrUndefined } from "util";
 
 /**
  * A command to allow a rule to be set by users
@@ -41,16 +42,23 @@ export class AllowRole extends Command {
         if (msg.guild == undefined)
             return msg.say("This command can only be executed in a guild.");
 
-        if (args != undefined && args.length > 0) {
-            let result = RolesManager.updateRolesFile(args, true);
+        if (args == undefined || args.length == 0)
+            return msg.say("Please provide a role.");
+
+        let rolePass = false;
+        msg.guild.roles.forEach(element =>  {
+            if (args.toLowerCase() == element.name.toLowerCase())
+                rolePass = true;
+            });
+
+        if (rolePass) {
+            let result = RolesManager.updateRolesFile(args.toLowerCase(), true);
             if (result)
-                return msg.say("Role Allowed!");
+                return msg.say("Role allowed!");
             else
-                return msg.say("Get your eyes checked. This role has already been allowed.");
+                return msg.say("This role has already been allowed.");
         }
-        else {
-            return msg.say("You somehow screwed up dumbass. Bots aren't magic. They can't read your mind. The Role is needed.");
-        }
+        return msg.say("This role does not exist in this guild.");
     }
 }
 module.exports = AllowRole;

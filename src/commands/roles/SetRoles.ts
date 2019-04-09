@@ -36,7 +36,7 @@ export class SetRole extends Command {
         }
 
         if (!RolesManager.validateRole(character)) {
-            return msg.reply(character + " is not a valid role... Maybe you should get the list of available roles first?");
+            return msg.reply(character + " is not an allowed role. Use the !getroles command to see which roles are allowed.");
         }
 
         let guild = undefined;
