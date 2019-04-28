@@ -1,0 +1,3 @@
+~
+Teach Trollbot a lesson~
+Initialize all the things

@@ -16,7 +16,7 @@ export class GetSuggestions extends Command {
                 name: "getsuggestions",
                 group: "suggestions",
                 memberName: "getsuggestions",
-                description: "Retrieves entire list of suggestions"
+                description: "Retrieves all suggestions for a given list"
             });
     }
 
@@ -38,19 +38,17 @@ export class GetSuggestions extends Command {
      * @param fromPattern Whether or not the command is being run from a pattern match.
      */
     public async run(msg: CommandoMessage, args: string, fromPattern: boolean): Promise<Message | Message[] | null> {
+        if (!(args.length > 0))
+            return msg.say("Please provide the list you want to retrieve.");
         if (msg.guild == undefined)
             return msg.say("This command can only be executed in a guild.");
 
-        let member: GuildMember | undefined = NameResolution.stringToGuildMember(args, msg.guild);
-        if (member != null) {
-            let suggestion = SuggestionsManager.getsuggestions();
-            if (suggestion !== undefined) {
-                return msg.say(suggestion);
-            }
-            return msg.say("Suggestion list is empty.");
+        // let member: GuildMember | undefined = NameResolution.stringToGuildMember(args, msg.guild);
+        let suggestion = SuggestionsManager.getsuggestions(args);
+        if (suggestion !== undefined) {
+            return msg.say(suggestion);
         }
-        else
-           return msg.say("Aww fuck. How did this happen? Fuuuuuuuuuuuu.");
+        return msg.say("This list does not exist.");
     }
 
 }

@@ -9,19 +9,19 @@ import {SuggestionsManager} from "../../utility/SuggestionsManager";
 const resultEnum = {LISTEXISTS: 6, SUGGESTIONDOESNOTEXIST: 5, LISTADDED: 4, DERP: 3, SUGGESTIONADDED: 2, LISTDOESNOTEXIST: 1, SUGGESTIONEXISTS: 0};
 
 /**
- * A command for adding a suggestion to the list of suggestions.
+ * A command for adding a new list that holds suggestions.
  */
-export class Addsuggestion extends Command {
+export class AddList extends Command {
     /**
-     * Initializes a new instance of the Addsuggestion class
+     * Initializes a new instance of the AddList class
      * @param client The commando client to utilize.
      */
     constructor(client: CommandoClient) {
         super(client, {
-            name: "addsuggestion",
+            name: "addlist",
             group: "suggestions",
-            memberName: "addsuggestion",
-            description: "Adds a suggestion and appends it to the provided list. Commands should be formatted in LIST/SUGGESTION format. Including the /"
+            memberName: "addlist",
+            description: "Creates a new suggestions list."
             });
     }
 
@@ -46,25 +46,22 @@ export class Addsuggestion extends Command {
         if (msg.guild == undefined)
             return msg.say("This command can only be executed in a guild.");
 
-        if (args.indexOf("/") == -1)
-            return msg.say("Command not formatted correctly. It should be in the LIST/SUGGESTION format. Don't forget the /");
-
         if (args != undefined && args.length > 0) {
-            let result = SuggestionsManager.addsuggestion(args);
+            let result = SuggestionsManager.addList(args);
             switch (result) {
-                case resultEnum.SUGGESTIONADDED:
-                    return msg.say("Suggestion added!");
-                case resultEnum.LISTDOESNOTEXIST:
-                    return msg.say("The list you provided doesn't exist. If you need to add a new list, use the addList command.");
+                case resultEnum.LISTADDED:
+                    return msg.say("List added!");
+                case resultEnum.LISTEXISTS:
+                    return msg.say("This list already exists!");
                 case resultEnum.SUGGESTIONEXISTS:
                     return msg.say("The suggestion already exists. Use the getsuggestions command to view a list of all suggestion in a list");
                 case resultEnum.DERP:
-                    return msg.say("Oh no.. you really shouldn't be getting this...PROBLEM. Let a botdev know plz");
+                    return msg.say("Oh no.. you really shouldn't be getting this.. Let a botdev know plz");
             }
         }
         else
-            return msg.say("You get nothing. Good day, sir.");
+            return msg.say("Please provide the name of the list you wish to add.");
         return Promise.resolve(null);
     }
 }
-module.exports = Addsuggestion;
+module.exports = AddList;
