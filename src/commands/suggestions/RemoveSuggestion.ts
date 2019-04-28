@@ -2,6 +2,8 @@ import {Command, CommandoClient, CommandoMessage} from "discord.js-commando";
 import {Message} from "discord.js";
 import {SuggestionsManager} from "../../utility/SuggestionsManager";
 
+const resultEnum = {LISTREMOVED: 8, SUGGESTIONREMOVED: 7, LISTEXISTS: 6, SUGGESTIONDOESNOTEXIST: 5, LISTADDED: 4, DERP: 3, SUGGESTIONADDED: 2, LISTDOESNOTEXIST: 1, SUGGESTIONEXISTS: 0};
+
 /**
  * A command for removeing a suggestion to the list of suggestions.
  */
@@ -15,7 +17,7 @@ export class RemoveSuggestion extends Command {
             name: "removesuggestion",
             group: "suggestions",
             memberName: "removesuggestion",
-            description: "Removes a suggestion and updates the file"
+            description: "Removes suggestion from the provided list. Commands should be formatted in LIST/SUGGESTION format. Including the /"
             });
     }
 
@@ -40,16 +42,21 @@ export class RemoveSuggestion extends Command {
         if (msg.guild == undefined)
             return msg.say("This command can only be executed in a guild.");
 
+        if (args.indexOf("/") == -1)
+            return msg.say("Command not formatted correctly. It should be in the LIST/SUGGESTION format. Don't forget the /");
+
         if (args != undefined && args.length > 0) {
             let result = SuggestionsManager.removesuggestion(args);
-            if (result)
-                return msg.say("Suggestion removed!");
-            else
+            if (result == resultEnum.LISTDOESNOTEXIST)
                 return msg.say("Can you not read? This was never suggested, fuck face.");
+            if (result == resultEnum.SUGGESTIONREMOVED)
+                return msg.say("Suggestion removed!");
+            if (result == resultEnum.SUGGESTIONDOESNOTEXIST)
+                return msg.say("This suggestion does not exist in the list provided.");
         }
-        else {
-            return msg.say("You somehow screwed up dumbass");
-        }
+        else
+            return msg.say("You get nothing. Good day, sir.");
+        return Promise.resolve(null);
     }
 }
 module.exports = RemoveSuggestion;
