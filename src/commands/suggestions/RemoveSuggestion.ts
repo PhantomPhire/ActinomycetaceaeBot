@@ -47,7 +47,7 @@ export class RemoveSuggestion extends Command {
         if (args != undefined && args.length > 0) {
             let result = SuggestionsManager.removeSuggestion(args);
             if (result == SuggestionsManager._resultEnum.LIST_DOES_NOT_EXIST)
-                return msg.say("Can you not read? This was never suggested, fuck face.");
+                return msg.say("This list does not exist.");
             if (result == SuggestionsManager._resultEnum.SUGGESTION_REMOVED)
                 return msg.say("Suggestion removed!");
             if (result == SuggestionsManager._resultEnum.SUGGESTION_DOES_NOT_EXIST)
