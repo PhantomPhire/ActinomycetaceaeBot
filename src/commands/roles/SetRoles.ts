@@ -36,7 +36,7 @@ export class SetRole extends Command {
         }
 
         if (!RolesManager.validateRole(character)) {
-            return msg.reply(character + " is not a valid role... Maybe you should get the list of available roles first?");
+            return msg.reply(character + " is not an allowed role. Use the !getroles command to see which roles are allowed.");
         }
 
         let guild = undefined;
@@ -84,7 +84,7 @@ export class SetRole extends Command {
         }
 
         // So this is completely pointless but the typescript definitions of this function absolutely demand a promise of a message to be returned at the
-        // end of every command function because TS won't accept null for undefined like the definition says soooo.....¯\_(ツ)_/¯
+        // end of every command function because TS won't accept null for undefined like the definition says soooo.....¯\_(ツ)_/¯ LOL
         return msg.say("Working on it...");
     }
 }

@@ -49,7 +49,7 @@ export class BlockRole extends Command {
                 return msg.say("Can't block a roll that hasn't been allowed..");
         }
         else {
-            return msg.say("You somehow screwed up dumbass. Bots aren't magic. They can't read your mind. The Role is needed.");
+            return msg.say("A Role is needed.");
         }
     }
 }

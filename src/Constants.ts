@@ -18,7 +18,7 @@ export abstract class ActBotConstants {
      * The path to the suggestions text file.
      * @constant
      */
-    public static readonly suggestionsPath: string = ActBotConstants.rootPath + "suggestions.txt";
+    public static readonly suggestionsPath: string = ActBotConstants.rootPath + "assets/suggestions.json";
 
     /**
      * The maximum message length in Discord.

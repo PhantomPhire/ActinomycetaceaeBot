@@ -33,7 +33,8 @@ export abstract class RolesManager {
      * Gets the roles.json and deserialzes into _roles array
      */
     public static retrieveRoles() {
-        RolesManager._roles = require(ActBotConstants.assetPath + "roles.json") as Array<string>;
+        let tempJson = fs.readFileSync(ActBotConstants.rolesPath).toString("utf-8");
+        RolesManager._roles = JSON.parse(tempJson);
     }
     /**
      * Adds or removes a role to _roles array, serializes to json, and updates json file

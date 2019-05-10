@@ -2,23 +2,21 @@ import {Command, CommandoClient, CommandoMessage} from "discord.js-commando";
 import {Message} from "discord.js";
 import {SuggestionsManager} from "../../utility/SuggestionsManager";
 
-
-
 /**
- * A command for adding a suggestion to the list of suggestions.
+ * A command for adding a new list that holds suggestions.
  */
-export class Addsuggestion extends Command {
+export class AddList extends Command {
     /**
-     * Initializes a new instance of the Addsuggestion class
+     * Initializes a new instance of the AddList class
      * @param client The commando client to utilize.
      */
     constructor(client: CommandoClient) {
         super(client, {
-            name: "addsuggestion",
+            name: "addlist",
             group: "suggestions",
-            memberName: "addsuggestion",
-            aliases: ["as"],
-            description: "Adds a suggestion and appends it to the provided list. Commands should be formatted in LIST/SUGGESTION format. Including the /"
+            memberName: "addlist",
+            aliases: ["al"],
+            description: "Creates a new suggestions list."
             });
     }
 
@@ -43,25 +41,22 @@ export class Addsuggestion extends Command {
         if (msg.guild == undefined)
             return msg.say("This command can only be executed in a guild.");
 
-        if (args.indexOf("/") == -1)
-            return msg.say("Command not formatted correctly. It should be in the LIST/SUGGESTION format. Don't forget the /");
-
         if (args != undefined && args.length > 0) {
-            let result = SuggestionsManager.addSuggestion(args);
+            let result = SuggestionsManager.addList(args);
             switch (result) {
-                case SuggestionsManager._resultEnum.SUGGESTION_ADDED:
-                    return msg.say("Suggestion added!");
-                case SuggestionsManager._resultEnum.LIST_DOES_NOT_EXIST:
-                    return msg.say("The list you provided doesn't exist. If you need to add a new list, use the addList command.");
+                case SuggestionsManager._resultEnum.LIST_ADDED:
+                    return msg.say("List added!");
+                case SuggestionsManager._resultEnum.LIST_EXISTS:
+                    return msg.say("This list already exists!");
                 case SuggestionsManager._resultEnum.SUGGESTION_EXISTS:
                     return msg.say("The suggestion already exists. Use the getsuggestions command to view a list of all suggestion in a list");
                 case SuggestionsManager._resultEnum.DERP:
-                    return msg.say("Oh no.. you really shouldn't be getting this...PROBLEM. Let a botdev know plz");
+                    return msg.say("Oh no.. you really shouldn't be getting this.. Let a botdev know plz");
             }
         }
         else
-            return msg.say("You get nothing. Good day, sir.");
+            return msg.say("Please provide the name of the list you wish to add.");
         return Promise.resolve(null);
     }
 }
-module.exports = Addsuggestion;
+module.exports = AddList;

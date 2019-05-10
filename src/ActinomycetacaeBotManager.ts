@@ -1,6 +1,8 @@
 import * as config from "../../config.json";
 import {CommandoClient} from "discord.js-commando";
 import {BotManager, GuildAudioPlayer, SoundFileManager} from "discord-shine";
+import { RolesManager } from "./utility/RolesManager.js";
+import { SuggestionsManager } from "./utility/SuggestionsManager.js";
 
 /**
  * A wrapper for the TrollBot, managing its events and internals
@@ -15,6 +17,8 @@ export class ActinomycetacaeBotManager extends BotManager {
         if (soundConfig !== undefined) {
             SoundFileManager.initialize((<any>config).soundPath);
         }
+        RolesManager.initialize(); // <-- This fucker right here...
+        SuggestionsManager.initialize();
     }
 
     /**

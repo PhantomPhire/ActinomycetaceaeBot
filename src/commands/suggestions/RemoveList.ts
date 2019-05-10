@@ -3,20 +3,20 @@ import {Message} from "discord.js";
 import {SuggestionsManager} from "../../utility/SuggestionsManager";
 
 /**
- * A command for removeing a suggestion to the list of suggestions.
+ * A command for removeing a list to the list of suggestions.
  */
-export class RemoveSuggestion extends Command {
+export class RemoveList extends Command {
     /**
      * Initializes a new instance of the Removesuggestion class
      * @param client The commando client to utilize.
      */
     constructor(client: CommandoClient) {
         super(client, {
-            name: "removesuggestion",
+            name: "removelist",
             group: "suggestions",
-            memberName: "removesuggestion",
-            aliases: ["rs"],
-            description: "Removes suggestion from the provided list. Commands should be formatted in LIST/SUGGESTION format. Including the /"
+            memberName: "removelist",
+            aliases: ["rl"],
+            description: "Removes a list. Note that this command will only work on a list with no suggestions."
             });
     }
 
@@ -41,21 +41,18 @@ export class RemoveSuggestion extends Command {
         if (msg.guild == undefined)
             return msg.say("This command can only be executed in a guild.");
 
-        if (args.indexOf("/") == -1)
-            return msg.say("Command not formatted correctly. It should be in the LIST/SUGGESTION format. Don't forget the /");
-
         if (args != undefined && args.length > 0) {
-            let result = SuggestionsManager.removeSuggestion(args);
+            let result = SuggestionsManager.removeList(args);
             if (result == SuggestionsManager._resultEnum.LIST_DOES_NOT_EXIST)
-                return msg.say("This list does not exist.");
-            if (result == SuggestionsManager._resultEnum.SUGGESTION_REMOVED)
-                return msg.say("Suggestion removed!");
-            if (result == SuggestionsManager._resultEnum.SUGGESTION_DOES_NOT_EXIST)
-                return msg.say("This suggestion does not exist in the list provided.");
+                return msg.say("This list does not exist. Use the getlists command to see all existing lists.");
+            if (result == SuggestionsManager._resultEnum.LIST_NOT_EMPTY)
+                return msg.say ("This list is not empty. Only empty lists can be removed.");
+            if (result == SuggestionsManager._resultEnum.LIST_REMOVED)
+                return msg.say ("List removed!");
         }
         else
-            return msg.say("You get nothing. Good day, sir.");
+            return msg.say("Provide the name of the list you want to remove.");
         return Promise.resolve(null);
     }
 }
-module.exports = RemoveSuggestion;
+module.exports = RemoveList;
