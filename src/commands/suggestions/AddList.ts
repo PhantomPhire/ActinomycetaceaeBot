@@ -3,12 +3,6 @@ import {Message} from "discord.js";
 import {SuggestionsManager} from "../../utility/SuggestionsManager";
 
 /**
- * Enum for potential results
- * @constant
- */
-const resultEnum = {LISTEXISTS: 6, SUGGESTIONDOESNOTEXIST: 5, LISTADDED: 4, DERP: 3, SUGGESTIONADDED: 2, LISTDOESNOTEXIST: 1, SUGGESTIONEXISTS: 0};
-
-/**
  * A command for adding a new list that holds suggestions.
  */
 export class AddList extends Command {
@@ -21,6 +15,7 @@ export class AddList extends Command {
             name: "addlist",
             group: "suggestions",
             memberName: "addlist",
+            aliases: ["al"],
             description: "Creates a new suggestions list."
             });
     }
@@ -49,13 +44,13 @@ export class AddList extends Command {
         if (args != undefined && args.length > 0) {
             let result = SuggestionsManager.addList(args);
             switch (result) {
-                case resultEnum.LISTADDED:
+                case SuggestionsManager._resultEnum.LIST_ADDED:
                     return msg.say("List added!");
-                case resultEnum.LISTEXISTS:
+                case SuggestionsManager._resultEnum.LIST_EXISTS:
                     return msg.say("This list already exists!");
-                case resultEnum.SUGGESTIONEXISTS:
+                case SuggestionsManager._resultEnum.SUGGESTION_EXISTS:
                     return msg.say("The suggestion already exists. Use the getsuggestions command to view a list of all suggestion in a list");
-                case resultEnum.DERP:
+                case SuggestionsManager._resultEnum.DERP:
                     return msg.say("Oh no.. you really shouldn't be getting this.. Let a botdev know plz");
             }
         }

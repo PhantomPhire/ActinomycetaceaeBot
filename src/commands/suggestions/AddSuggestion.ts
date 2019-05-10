@@ -2,11 +2,7 @@ import {Command, CommandoClient, CommandoMessage} from "discord.js-commando";
 import {Message} from "discord.js";
 import {SuggestionsManager} from "../../utility/SuggestionsManager";
 
-/**
- * Enum for potential results
- * @constant
- */
-const resultEnum = {LISTEXISTS: 6, SUGGESTIONDOESNOTEXIST: 5, LISTADDED: 4, DERP: 3, SUGGESTIONADDED: 2, LISTDOESNOTEXIST: 1, SUGGESTIONEXISTS: 0};
+
 
 /**
  * A command for adding a suggestion to the list of suggestions.
@@ -21,6 +17,7 @@ export class Addsuggestion extends Command {
             name: "addsuggestion",
             group: "suggestions",
             memberName: "addsuggestion",
+            aliases: ["as"],
             description: "Adds a suggestion and appends it to the provided list. Commands should be formatted in LIST/SUGGESTION format. Including the /"
             });
     }
@@ -50,15 +47,15 @@ export class Addsuggestion extends Command {
             return msg.say("Command not formatted correctly. It should be in the LIST/SUGGESTION format. Don't forget the /");
 
         if (args != undefined && args.length > 0) {
-            let result = SuggestionsManager.addsuggestion(args);
+            let result = SuggestionsManager.addSuggestion(args);
             switch (result) {
-                case resultEnum.SUGGESTIONADDED:
+                case SuggestionsManager._resultEnum.SUGGESTION_ADDED:
                     return msg.say("Suggestion added!");
-                case resultEnum.LISTDOESNOTEXIST:
+                case SuggestionsManager._resultEnum.LIST_DOES_NOT_EXIST:
                     return msg.say("The list you provided doesn't exist. If you need to add a new list, use the addList command.");
-                case resultEnum.SUGGESTIONEXISTS:
+                case SuggestionsManager._resultEnum.SUGGESTION_EXISTS:
                     return msg.say("The suggestion already exists. Use the getsuggestions command to view a list of all suggestion in a list");
-                case resultEnum.DERP:
+                case SuggestionsManager._resultEnum.DERP:
                     return msg.say("Oh no.. you really shouldn't be getting this...PROBLEM. Let a botdev know plz");
             }
         }

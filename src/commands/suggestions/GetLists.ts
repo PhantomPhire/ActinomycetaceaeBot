@@ -16,6 +16,7 @@ export class GetLists extends Command {
                 name: "getlists",
                 group: "suggestions",
                 memberName: "getlists",
+                aliases: ["gl"],
                 description: "Retrieves the names of all lists"
             });
     }
@@ -42,7 +43,7 @@ export class GetLists extends Command {
             return msg.say("This command can only be executed in a guild.");
 
         // let member: GuildMember | undefined = NameResolution.stringToGuildMember(args, msg.guild);
-        let lists = SuggestionsManager.getlists();
+        let lists = SuggestionsManager.getLists();
         if (lists !== undefined && lists !== "") {
             return msg.say("Suggestion lists:\n\n" + lists);
         }

@@ -2,8 +2,6 @@ import {Command, CommandoClient, CommandoMessage} from "discord.js-commando";
 import {Message} from "discord.js";
 import {SuggestionsManager} from "../../utility/SuggestionsManager";
 
-const resultEnum = {LISTNOTEMPTY: 9, LISTREMOVED: 8, SUGGESTIONREMOVED: 7, LISTEXISTS: 6, SUGGESTIONDOESNOTEXIST: 5, LISTADDED: 4, DERP: 3, SUGGESTIONADDED: 2, LISTDOESNOTEXIST: 1, SUGGESTIONEXISTS: 0};
-
 /**
  * A command for removeing a list to the list of suggestions.
  */
@@ -17,6 +15,7 @@ export class RemoveList extends Command {
             name: "removelist",
             group: "suggestions",
             memberName: "removelist",
+            aliases: ["rl"],
             description: "Removes a list. Note that this command will only work on a list with no suggestions."
             });
     }
@@ -43,12 +42,12 @@ export class RemoveList extends Command {
             return msg.say("This command can only be executed in a guild.");
 
         if (args != undefined && args.length > 0) {
-            let result = SuggestionsManager.removelist(args);
-            if (result == resultEnum.LISTDOESNOTEXIST)
+            let result = SuggestionsManager.removeList(args);
+            if (result == SuggestionsManager._resultEnum.LIST_DOES_NOT_EXIST)
                 return msg.say("This list does not exist. Use the getlists command to see all existing lists.");
-            if (result == resultEnum.LISTNOTEMPTY)
+            if (result == SuggestionsManager._resultEnum.LIST_NOT_EMPTY)
                 return msg.say ("This list is not empty. Only empty lists can be removed.");
-            if (result == resultEnum.LISTREMOVED)
+            if (result == SuggestionsManager._resultEnum.LIST_REMOVED)
                 return msg.say ("List removed!");
         }
         else

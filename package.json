@@ -4,7 +4,7 @@
   "description": "A Discord bot for trolling people.",
   "main": "actBot.js",
   "dependencies": {
-    "discord-shine": "0.0.3",
+    "discord-shine": "^0.0.3",
     "ffmpeg.js": "^3.1.9001",
     "node-gyp": "^3.8.0",
     "node-opus": "^0.3.1",
